@@ -1,0 +1,15 @@
+﻿.codery__text-counter {
+    font-size: 12px;
+}
+
+a + .codery__text-counter {
+    margin-left: 18px;
+}
+
+.codery__text-counter--warning {
+    color: #df7f48;
+}
+
+.codery__text-counter--error {
+    color: #9d261d;
+}

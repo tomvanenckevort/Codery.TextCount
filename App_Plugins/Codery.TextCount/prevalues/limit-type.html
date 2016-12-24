@@ -1,0 +1,17 @@
+﻿<ul class="unstyled">
+    <li>
+        <label class="checkbox">
+            <input type="radio" ng-model="model.value" value="none" /> No limit - just shows count, but will not apply a limit.
+        </label>
+    </li>
+    <li>
+        <label class="checkbox">
+            <input type="radio" ng-model="model.value" value="warning" /> Warning - shows warning when limit is passed, but allows more to be entered.
+        </label>
+    </li>
+    <li>
+        <label class="checkbox">
+            <input type="radio" ng-model="model.value" value="hard" /> Hard limit - doesn't allow entry of any more characters past limit.
+        </label>
+    </li>
+</ul>

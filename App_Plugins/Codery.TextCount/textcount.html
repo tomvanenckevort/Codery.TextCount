@@ -1,0 +1,12 @@
+<div ng-controller="Codery.TextCountController" ng-model="model" class="codery__text-count umb-editor"
+    codery-textcount
+    codery-textcount-count-type="{{model.config.countType}}"
+    codery-textcount-limit="{{model.config.limit}}"
+    codery-textcount-limit-type="{{model.config.limitType}}">
+    
+    <umb-property-editor
+        ng-if="wrappedProperty !== undefined"
+        model="wrappedProperty">
+    </umb-property-editor>
+	
+</div>
