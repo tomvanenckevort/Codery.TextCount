@@ -9,7 +9,7 @@ namespace Codery.TextCount.PropertyEditors
     /// Link picker property editor.
     /// </summary>
     [PropertyEditor(alias: "Codery.TextCount", name: "Text Count", 
-        editorView: "~/App_Plugins/Codery.Base/TextCount/textcount.html", valueType: PropertyEditorValueTypes.Text)]
+        editorView: "~/App_Plugins/Codery.TextCount/textcount.html", valueType: PropertyEditorValueTypes.Text)]
     [PropertyEditorAsset(ClientDependencyType.Javascript, "~/App_Plugins/Codery.TextCount/textcount.controller.js")]
     [PropertyEditorAsset(ClientDependencyType.Javascript, "~/App_Plugins/Codery.TextCount/textcount.directive.js")]
     [PropertyEditorAsset(ClientDependencyType.Javascript, DataTypePicker.Constants.ControllerPath)]
@@ -44,7 +44,7 @@ namespace Codery.TextCount.PropertyEditors
                 Description = "Choose whether to count characters or words.",
                 Key = "countType",
                 Name = "Characters or words?",
-                View = "/App_Plugins/Codery.Base/TextCount/prevalues/count-type.html"
+                View = "/App_Plugins/Codery.TextCount/prevalues/count-type.html"
             });
 
             editor.Fields.Add(new PreValueField()
@@ -60,7 +60,7 @@ namespace Codery.TextCount.PropertyEditors
                 Description = "Choose what happens when the limit is reached.",
                 Key = "limitType",
                 Name = "Limit Type",
-                View = "/App_Plugins/Codery.Base/TextCount/prevalues/limit-type.html"
+                View = "/App_Plugins/Codery.TextCount/prevalues/limit-type.html"
             });
 
             return editor;
