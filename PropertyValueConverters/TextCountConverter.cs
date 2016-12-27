@@ -14,7 +14,7 @@ namespace Codery.TextCount.PropertyValueConverters
     {
         public override bool IsConverter(PublishedPropertyType propertyType)
         {
-            return propertyType.PropertyEditorAlias.Equals("Codery.Base.TextCount");
+            return propertyType.PropertyEditorAlias.Equals("Codery.TextCount");
         }
 
         public PropertyCacheLevel GetPropertyCacheLevel(PublishedPropertyType propertyType, PropertyCacheValue cacheValue)

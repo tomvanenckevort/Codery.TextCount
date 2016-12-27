@@ -16,7 +16,6 @@
     <tags>umbraco editor</tags>
     <dependencies>
       <dependency id="UmbracoCms" version="7.4.0" />
-      <dependency id="UmbracoCms.Core" version="7.4.0" />
       <dependency id="Codery.DataTypePicker" version="1.0.0" />
     </dependencies>
   </metadata>
