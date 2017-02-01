@@ -8,7 +8,7 @@ using Umbraco.Core.PropertyEditors;
 namespace Codery.TextCount.PropertyValueConverters
 {
     /// <summary>
-    /// Converts text count wrapped property value.
+    ///     Converts text count wrapped property value.
     /// </summary>
     public class TextCountConverter : PropertyValueConverterBase, IPropertyValueConverterMeta
     {
@@ -17,14 +17,14 @@ namespace Codery.TextCount.PropertyValueConverters
             return propertyType.PropertyEditorAlias.Equals("Codery.TextCount");
         }
 
-        public PropertyCacheLevel GetPropertyCacheLevel(PublishedPropertyType propertyType, PropertyCacheValue cacheValue)
+        public PropertyCacheLevel GetPropertyCacheLevel(PublishedPropertyType propertyType,
+            PropertyCacheValue cacheValue)
         {
             PropertyCacheLevel returnLevel;
 
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
 
             if (wrappedPropertyType != null)
-            {
                 switch (cacheValue)
                 {
                     case PropertyCacheValue.Object:
@@ -36,15 +36,15 @@ namespace Codery.TextCount.PropertyValueConverters
                     case PropertyCacheValue.XPath:
                         returnLevel = wrappedPropertyType.XPathCacheLevel;
                         break;
+                    case PropertyCacheValue.All:
+                        returnLevel = PropertyCacheLevel.None;
+                        break;
                     default:
                         returnLevel = PropertyCacheLevel.None;
                         break;
                 }
-            }
             else
-            {
                 returnLevel = PropertyCacheLevel.None;
-            }
 
             return returnLevel;
         }
@@ -53,119 +53,96 @@ namespace Codery.TextCount.PropertyValueConverters
         {
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
 
-            if (wrappedPropertyType != null)
-            {
-                return wrappedPropertyType.ClrType;
-            }
-            else
-            {
-                return typeof(string);
-            }
+            return wrappedPropertyType != null ? wrappedPropertyType.ClrType : typeof(string);
         }
 
         public override object ConvertDataToSource(PublishedPropertyType propertyType, object source, bool preview)
         {
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
 
-            if (wrappedPropertyType != null)
-            {
-                return wrappedPropertyType.ConvertDataToSource(source, preview);
-            }
-
-            return source;
+            return wrappedPropertyType != null ? wrappedPropertyType.ConvertDataToSource(source, preview) : source;
         }
 
         public override object ConvertSourceToObject(PublishedPropertyType propertyType, object source, bool preview)
         {
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
 
-            if (wrappedPropertyType != null)
-            {
-                return wrappedPropertyType.ConvertSourceToObject(source, preview);
-            }
-
-            return source;
+            return wrappedPropertyType != null ? wrappedPropertyType.ConvertSourceToObject(source, preview) : source;
         }
 
         #region Wrapper methods
 
-        private Dictionary<int, PublishedPropertyType> wrappedPropertyTypes = new Dictionary<int, PublishedPropertyType>();
+        private readonly Dictionary<int, PublishedPropertyType> _wrappedPropertyTypes =
+            new Dictionary<int, PublishedPropertyType>();
 
-        private Object wrappedPropertyTypesLock = new Object();
+        private readonly object _wrappedPropertyTypesLock = new object();
 
         /// <summary>
-        /// Gets property type of wrapped data type.
+        ///     Gets property type of wrapped data type.
         /// </summary>
         /// <param name="wrapperPropertyType"></param>
         /// <returns></returns>
         private PublishedPropertyType GetWrappedPropertyType(PublishedPropertyType wrapperPropertyType)
         {
-            lock (wrappedPropertyTypesLock)
+            lock (_wrappedPropertyTypesLock)
             {
                 // check if wrapped property already exists in list
-                if (wrappedPropertyTypes.ContainsKey(wrapperPropertyType.DataTypeId))
-                {
-                    // return cached object
-                    return wrappedPropertyTypes[wrapperPropertyType.DataTypeId];
-                }
+                if (_wrappedPropertyTypes.ContainsKey(wrapperPropertyType.DataTypeId))
+                    return _wrappedPropertyTypes[wrapperPropertyType.DataTypeId];
 
                 PublishedPropertyType propertyType = null;
 
                 var wrappedDataTypeId = GetWrappedDataTypeId(wrapperPropertyType.DataTypeId);
 
                 if (wrappedDataTypeId != 0)
-                {
                     propertyType = GetPublishedPropertyType(wrappedDataTypeId, wrapperPropertyType.ContentType);
-                }
 
                 // cache the current object for future calls
-                wrappedPropertyTypes.Add(wrapperPropertyType.DataTypeId, propertyType);
+                _wrappedPropertyTypes.Add(wrapperPropertyType.DataTypeId, propertyType);
 
                 return propertyType;
             }
         }
 
         /// <summary>
-        /// Gets the wrapped data type ID from the current data type's prevalues.
+        ///     Gets the wrapped data type ID from the current data type's prevalues.
         /// </summary>
         /// <param name="wrapperDataTypeId"></param>
         /// <returns></returns>
-        private int GetWrappedDataTypeId(int wrapperDataTypeId)
+        private static int GetWrappedDataTypeId(int wrapperDataTypeId)
         {
-            int dataTypeId = 0;
+            var dataTypeId = 0;
 
-            var preValues = ApplicationContext.Current.Services.DataTypeService.GetPreValuesCollectionByDataTypeId(wrapperDataTypeId);
+            var preValues =
+                ApplicationContext.Current.Services.DataTypeService.GetPreValuesCollectionByDataTypeId(wrapperDataTypeId);
 
-            if (preValues != null)
-            {
-                var dict = preValues.PreValuesAsDictionary;
+            if (preValues == null)
+                return dataTypeId;
 
-                if (dict.ContainsKey("dataType"))
-                {
-                    if (!int.TryParse(dict["dataType"].Value, out dataTypeId))
-                    {
-                        dataTypeId = 0;
-                    }
-                }
-            }
+            var dict = preValues.PreValuesAsDictionary;
+
+            if (!dict.ContainsKey("dataType"))
+                return dataTypeId;
+
+            if (!int.TryParse(dict["dataType"].Value, out dataTypeId))
+                dataTypeId = 0;
 
             return dataTypeId;
         }
 
         /// <summary>
-        /// Get published property type of the wrapped data type.
+        ///     Get published property type of the wrapped data type.
         /// </summary>
         /// <param name="dataTypeId"></param>
         /// <param name="contentType"></param>
         /// <returns></returns>
         private PublishedPropertyType GetPublishedPropertyType(int dataTypeId, PublishedContentType contentType)
         {
-            var dataTypeDefinition = ApplicationContext.Current.Services.DataTypeService.GetDataTypeDefinitionById(dataTypeId);
+            var dataTypeDefinition =
+                ApplicationContext.Current.Services.DataTypeService.GetDataTypeDefinitionById(dataTypeId);
 
-            if (dataTypeDefinition == null || contentType == null)
-            {
+            if ((dataTypeDefinition == null) || (contentType == null))
                 return null;
-            }
 
             var propertyType = new PropertyType(dataTypeDefinition);
 
