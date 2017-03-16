@@ -273,6 +273,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Plugins\Codery.TextCount\lang\en-US.xml" />
     <Content Include="Codery.TextCount.nuspec" />
     <Content Include="packages.config" />
   </ItemGroup>

@@ -1,4 +1,4 @@
-angular.module('umbraco.directives').directive('coderyTextcount', function ($timeout) {
+angular.module('umbraco.directives').directive('coderyTextcount', function ($timeout, localizationService) {
 
     return {
         restrict: 'A',
@@ -16,12 +16,22 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
             var errorLabel = '';
             var valueSeparator = '';
             var countFunction = function (v) { return 0; };
+            var errorTooMany = '';
 
             switch (scope.countType) {
                 case 'characters':
-                    counterLabel = ' char.';
-                    counterLabelPlural = ' chars.';
-                    errorLabel = 'characters';
+                    localizationService.localize('textcount_labelCharacter').then(function (value) {
+                        counterLabel = ' ' + value;
+                    });
+
+                    localizationService.localize('textcount_labelCharacters').then(function (value) {
+                        counterLabelPlural = ' ' + value;
+                    });
+
+                    localizationService.localize('textcount_errorCharacters').then(function (value) {
+                        errorLabel = value;
+                    });
+
                     valueSeparator = '';
                     countFunction = function (v) {
                         if (v !== undefined) {
@@ -32,9 +42,18 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                     };
                     break;
                 case 'words':
-                    counterLabel = ' word';
-                    counterLabelPlural = ' words';
-                    errorLabel = 'words';
+                    localizationService.localize('textcount_labelWord').then(function (value) {
+                        counterLabel = ' ' + value;
+                    });
+
+                    localizationService.localize('textcount_labelWords').then(function (value) {
+                        counterLabelPlural = ' ' + value;
+                    });
+
+                    localizationService.localize('textcount_errorWords').then(function (value) {
+                        errorLabel = value;
+                    });
+
                     valueSeparator = ' ';
                     countFunction = function (v) {
                         if (v !== undefined) {
@@ -45,6 +64,10 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                     };
                     break;
             }
+
+            localizationService.localize('textcount_errorTooMany').then(function (value) {
+                errorTooMany = value;
+            });
 
             function getValue($el) {
                 // get element value and process it if required
@@ -148,7 +171,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                         counter.toggleClass('codery__text-counter--warning', showWarning);
                     }
                     
-                    counter.html(count + (count === 1 ? counterLabel : counterLabelPlural) + (showErrorMsg ? ' - Too many ' + errorLabel : ''));
+                    counter.html(count + (count === 1 ? counterLabel : counterLabelPlural) + (showErrorMsg ? ' - ' + errorTooMany + ' ' + errorLabel : ''));
                 });
             };
 

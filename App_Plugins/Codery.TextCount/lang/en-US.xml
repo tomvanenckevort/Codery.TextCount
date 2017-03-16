@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<language alias="en" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
+  <creator>
+    <name>Tom van Enckevort</name>
+    <link>http://codery.co.uk</link>
+  </creator>
+  <area alias="textcount">
+    <key alias="labelCharacter">char.</key>
+    <key alias="labelCharacters">chars.</key>
+    <key alias="errorCharacters">characters</key>
+    <key alias="labelWord">word</key>
+    <key alias="labelWords">words</key>
+    <key alias="errorWords">words</key>
+    <key alias="errorTooMany">Too many</key>
+  </area>
+</language>
