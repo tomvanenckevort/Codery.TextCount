@@ -73,7 +73,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                 // get element value and process it if required
                 var val = $el.val();
 
-                var isTinyMCE = $el.prev().hasClass('mce-tinymce');
+                var isTinyMCE = $el.parent().hasClass('umb-rte');
                 var isMarkdown = $el.hasClass('wmd-input');
 
                 var html = null;
