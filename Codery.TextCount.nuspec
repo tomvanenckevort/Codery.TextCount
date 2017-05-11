@@ -11,7 +11,7 @@
     <iconUrl>http://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Retargeted to .NET v4.5 for wider compatibility.</releaseNotes>
+    <releaseNotes>Fixed RTE initialisation bug.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>umbraco editor</tags>
     <dependencies>
