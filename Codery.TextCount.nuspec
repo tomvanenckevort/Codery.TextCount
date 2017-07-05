@@ -11,7 +11,7 @@
     <iconUrl>http://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fixed RTE initialisation bug.</releaseNotes>
+    <releaseNotes>Fixed directive order bug on older versions of Firefox.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>umbraco editor</tags>
     <dependencies>

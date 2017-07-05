@@ -8,6 +8,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
             limit: '@coderyTextcountLimit',
             limitType: '@coderyTextcountLimitType'
         },
+        priority: -1,
         link: function (scope, elem, attrs, ctrl) {
 
             // initialise counter settings based on chosen options
