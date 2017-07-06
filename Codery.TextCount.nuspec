@@ -11,7 +11,7 @@
     <iconUrl>http://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Fixed directive order bug on older versions of Firefox.</releaseNotes>
+    <releaseNotes>Fixed conflicting package dependencies.</releaseNotes>
     <copyright>Copyright 2017</copyright>
     <tags>umbraco editor</tags>
     <dependencies>

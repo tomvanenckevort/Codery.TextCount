@@ -10,7 +10,7 @@ namespace Codery.TextCount.PropertyEditors
     ///     Link picker property editor.
     /// </summary>
     [PropertyEditor("Codery.TextCount", "Text Count",
-         editorView: "~/App_Plugins/Codery.TextCount/textcount.html", valueType: PropertyEditorValueTypes.Text)]
+         editorView: "~/App_Plugins/Codery.TextCount/textcount.html", valueType: "TEXT")]
     [PropertyEditorAsset(ClientDependencyType.Javascript, "~/App_Plugins/Codery.TextCount/textcount.controller.js")]
     [PropertyEditorAsset(ClientDependencyType.Javascript, "~/App_Plugins/Codery.TextCount/textcount.directive.js")]
     [PropertyEditorAsset(ClientDependencyType.Javascript, Constants.ControllerPath)]
