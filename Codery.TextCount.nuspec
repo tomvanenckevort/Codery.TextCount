@@ -1,25 +1,25 @@
 <?xml version="1.0"?>
-<package >
-  <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
-    <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-    <projectUrl>http://codery.co.uk</projectUrl>
-    <iconUrl>http://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
-    <releaseNotes>Fixed conflicting package dependencies.</releaseNotes>
-    <copyright>Copyright 2017</copyright>
-    <tags>umbraco editor</tags>
-    <dependencies>
-      <dependency id="UmbracoCms" version="7.4.0" />
-      <dependency id="Codery.DataTypePicker" version="1.0.6" />
-    </dependencies>
-  </metadata>
-  <files>
-    <file src="App_Plugins\*" target="content" />
-  </files>
+<package>
+    <metadata>
+        <id>$id$</id>
+        <version>$version$</version>
+        <title>$title$</title>
+        <authors>$author$</authors>
+        <owners>$author$</owners>
+        <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
+        <projectUrl>http://codery.co.uk</projectUrl>
+        <iconUrl>http://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>$description$</description>
+        <releaseNotes>Added Dutch translations.</releaseNotes>
+        <copyright>Copyright 2017</copyright>
+        <tags>umbraco editor</tags>
+        <dependencies>
+            <dependency id="UmbracoCms" version="7.4.0" />
+            <dependency id="Codery.DataTypePicker" version="1.0.6" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="App_Plugins\*" target="content" />
+    </files>
 </package>
