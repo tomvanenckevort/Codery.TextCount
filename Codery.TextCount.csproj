@@ -224,6 +224,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\Codery.TextCount\lang\en-US.xml" />
+	<Content Include="App_Plugins\Codery.TextCount\lang\nl-NL.xml" />
     <Content Include="Codery.TextCount.nuspec" />
   </ItemGroup>
   <ItemGroup>
