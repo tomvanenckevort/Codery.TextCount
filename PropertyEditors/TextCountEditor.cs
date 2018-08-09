@@ -73,5 +73,10 @@ namespace Codery.TextCount.PropertyEditors
 
             return editor;
         }
+
+        protected override PropertyValueEditor CreateValueEditor()
+        {
+            return new TextCountValueEditorWrapper(base.CreateValueEditor());
+        }
     }
 }
