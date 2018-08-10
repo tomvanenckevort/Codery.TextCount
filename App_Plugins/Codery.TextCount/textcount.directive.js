@@ -116,8 +116,12 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
             function initCounters() {
                 var isMultipleTextbox = (elem.find('.umb-multiple-textbox').length > 0);
 
-                // find any non-initialised inputs
-                var newInputs = elem.find('input[type="text"], textarea').not('.codery__text-input').toArray();
+                // find any non-initialised inputs and exclude inputs in overlays
+                var newInputs = elem.find('input[type="text"], textarea').filter(function () {
+                    var $this = $(this);
+
+                    return !$this.hasClass('.codery__text-input') && $this.parentsUntil(elem).has('.umb-overlay').length === 0;
+                }).toArray();
 
                 newInputs.forEach(function (el) {
                     // append counter
@@ -185,7 +189,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
             };
 
             // initialize when editor content has been loaded
-            scope.$on('$includeContentLoaded', function() {
+            scope.$on('$includeContentLoaded', function () {
                 // track any text changes
                 scope.$watch('model.value', refreshCounters, true);
             });

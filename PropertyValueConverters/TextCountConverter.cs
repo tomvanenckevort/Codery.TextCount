@@ -70,6 +70,13 @@ namespace Codery.TextCount.PropertyValueConverters
             return wrappedPropertyType != null ? wrappedPropertyType.ConvertSourceToObject(source, preview) : source;
         }
 
+        public override object ConvertSourceToXPath(PublishedPropertyType propertyType, object source, bool preview)
+        {
+            var wrappedPropertyType = GetWrappedPropertyType(propertyType);
+
+            return wrappedPropertyType != null ? wrappedPropertyType.ConvertSourceToXPath(source, preview) : source;
+        }
+
         #region Wrapper methods
 
         private readonly Dictionary<int, PublishedPropertyType> _wrappedPropertyTypes =
