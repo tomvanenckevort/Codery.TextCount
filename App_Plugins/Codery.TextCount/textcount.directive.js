@@ -7,6 +7,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
         link: function (scope, elem, attrs, ctrl) {
 
             // initialise counter settings based on chosen options
+            var screenReaderLabel = '';
             var counterLabel = '';
             var counterLabelPlural = '';
             var errorLabel = '';
@@ -63,6 +64,10 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
 
             localizationService.localize('textcount_errorTooMany').then(function (value) {
                 errorTooMany = value;
+            });
+
+            localizationService.localize('textcount_labelScreenReader').then(function (value) {
+                screenReaderLabel = value;
             });
 
             function getValue($el) {
@@ -190,7 +195,9 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                         counter.toggleClass('codery__text-counter--warning', showWarning);
                     }
 
-                    counter.html(count + (count === 1 ? counterLabel : counterLabelPlural) + (showErrorMsg ? ' - ' + errorTooMany + ' ' + errorLabel : ''));
+                    var screenReaderSpan = '<span class="sr-only">' + screenReaderLabel + '</span> ';
+
+                    counter.html(screenReaderSpan + count + (count === 1 ? counterLabel : counterLabelPlural) + (showErrorMsg ? ' - ' + errorTooMany + ' ' + errorLabel : ''));
                 });
             };
 
