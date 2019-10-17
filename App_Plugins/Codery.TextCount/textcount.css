@@ -2,8 +2,8 @@
     font-size: 12px;
 }
 
-a + .codery__text-counter {
-    margin-left: 18px;
+.umb-multiple-textbox .textbox-wrapper .codery__text-counter {
+    width: 100%;
 }
 
 .codery__text-counter--warning {

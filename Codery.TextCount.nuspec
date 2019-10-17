@@ -7,16 +7,16 @@
         <authors>$author$</authors>
         <owners>$author$</owners>
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-        <projectUrl>http://codery.co.uk</projectUrl>
-        <iconUrl>http://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
+        <projectUrl>https://codery.co.uk</projectUrl>
+        <iconUrl>https://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <releaseNotes>Prevent v1 of package to be used with Umbraco v8.</releaseNotes>
+        <releaseNotes>Added Umbraco v8.1 compatibility.</releaseNotes>
         <copyright>Copyright 2019</copyright>
         <tags>umbraco editor</tags>
         <dependencies>
-            <dependency id="UmbracoCms" version="[7.4.0,8.0.0)" />
-            <dependency id="Codery.DataTypePicker" version="[1.0.7,2.0.0)" />
+            <dependency id="UmbracoCms" version="[8.1.0,9.0.0)" />
+            <dependency id="Codery.DataTypePicker" version="[2.0.0,3.0.0)" />
         </dependencies>
     </metadata>
     <files>
