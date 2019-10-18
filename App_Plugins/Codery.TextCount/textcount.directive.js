@@ -3,15 +3,11 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
     return {
         restrict: 'A',
         require: 'ngModel',
-        scope: {
-            countType: '@coderyTextcountCountType',
-            limit: '@coderyTextcountLimit',
-            limitType: '@coderyTextcountLimitType'
-        },
         priority: -1,
         link: function (scope, elem, attrs, ctrl) {
 
             // initialise counter settings based on chosen options
+            var screenReaderLabel = '';
             var counterLabel = '';
             var counterLabelPlural = '';
             var errorLabel = '';
@@ -19,7 +15,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
             var countFunction = function (v) { return 0; };
             var errorTooMany = '';
 
-            switch (scope.countType) {
+            switch (attrs.coderyTextcountCountType) {
                 case 'characters':
                     localizationService.localize('textcount_labelCharacter').then(function (value) {
                         counterLabel = ' ' + value;
@@ -70,6 +66,10 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                 errorTooMany = value;
             });
 
+            localizationService.localize('textcount_labelScreenReader').then(function (value) {
+                screenReaderLabel = value;
+            });
+
             function getValue($el) {
                 // get element value and process it if required
                 var val = $el.val();
@@ -79,9 +79,13 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
 
                 var html = null;
 
-                if (isTinyMCE) {
+                if (isTinyMCE && window.tinymce) {
                     // get HTML value
-                    html = $(val);
+                    var editor = window.tinymce.get($el.attr('id'));
+
+                    if (editor) {
+                        html = $(editor.getContent());
+                    }
                 }
 
                 if (isMarkdown && typeof Markdown !== 'undefined') {
@@ -94,17 +98,17 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                 if (html !== null) {
                     // strip value from HTML tags for counting (ignoring any empty elements or line breaks)
                     val = html
-                            .map(function (h) {
-                                var txt = $.trim(this.innerText);
+                        .map(function (h) {
+                            var txt = $.trim(this.innerText);
 
-                                if (txt !== '') {
-                                    return txt;
-                                } else {
-                                    return null;
-                                }
-                            })
-                            .toArray()
-                            .join(valueSeparator);
+                            if (txt !== '') {
+                                return txt;
+                            } else {
+                                return null;
+                            }
+                        })
+                        .toArray()
+                        .join(valueSeparator);
                 }
 
                 // return sanitised value
@@ -115,23 +119,38 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
 
             function initCounters() {
                 var isMultipleTextbox = (elem.find('.umb-multiple-textbox').length > 0);
+                var isTinyMCE = (elem.find('.umb-rte-editor').length > 0);
 
                 // find any non-initialised inputs and exclude inputs in overlays
-                var newInputs = elem.find('input[type="text"], textarea').filter(function () {
+                var newInputs = elem.find('input[type="text"], textarea, .umb-rte-editor').filter(function () {
                     var $this = $(this);
 
                     return !$this.hasClass('codery__text-input') && $this.parentsUntil(elem).has('.umb-overlay').length === 0;
                 }).toArray();
 
                 newInputs.forEach(function (el) {
+                    var $el = $(el);
+
+                    if (isTinyMCE) {
+                        // monitor TinyMCE change events to update counter
+                        var editor = (window.tinymce ? window.tinymce.get($el.attr('id')) : null);
+
+                        if (editor) {
+                            editor.on('KeyUp Paste Change SetContent', refreshCounters);
+                        }
+                        else {
+                            // not ready yet, so skip adding the counter and schedule the next check
+                            $timeout(refreshCounters, 50);
+                            return;
+                        }
+                    }
+
                     // append counter
                     var counter = $('<div class="codery__text-counter"></div>');
 
-                    var $el = $(el);
-
                     if (isMultipleTextbox) {
                         // append after the remove button
-                        $el.next('a').after(counter);
+                        $el.next('.icon-wrapper').after(counter);
                     } else {
                         // append after the input
                         $el.after(counter);
@@ -143,7 +162,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
 
                 inputs = inputs.concat(newInputs);
             };
-            
+
             function updateCounters() {
                 // update each input counter based on current value
                 inputs.forEach(function (el) {
@@ -157,15 +176,15 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                     var showErrorMsg = false;
                     var showWarning = false;
 
-                    if (scope.limit && scope.limitType !== 'none') {
-                        if (count > scope.limit) {
+                    if (attrs.coderyTextcountLimit && attrs.coderyTextcountLimitType !== 'none') {
+                        if (count > attrs.coderyTextcountLimit) {
                             showError = true;
                         }
-                        else if (count > (scope.limit - 5)) {
+                        else if (count > (attrs.coderyTextcountLimit - 5)) {
                             showWarning = true;
                         }
 
-                        if (scope.limitType === 'hard') {
+                        if (attrs.coderyTextcountLimitType === 'hard') {
                             // show error message when limit is exceeded
                             ctrl.$setValidity('textcount', !showError);
                             showErrorMsg = showError;
@@ -175,8 +194,10 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                         counter.toggleClass('codery__text-counter--error', showError);
                         counter.toggleClass('codery__text-counter--warning', showWarning);
                     }
-                    
-                    counter.html(count + (count === 1 ? counterLabel : counterLabelPlural) + (showErrorMsg ? ' - ' + errorTooMany + ' ' + errorLabel : ''));
+
+                    var screenReaderSpan = '<span class="sr-only">' + screenReaderLabel + '</span> ';
+
+                    counter.html(screenReaderSpan + count + (count === 1 ? counterLabel : counterLabelPlural) + (showErrorMsg ? ' - ' + errorTooMany + ' ' + errorLabel : ''));
                 });
             };
 

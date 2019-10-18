@@ -2,9 +2,10 @@
 <language alias="en" intName="English (US)" localName="English (US)" lcid="" culture="en-US">
   <creator>
     <name>Tom van Enckevort</name>
-    <link>http://codery.co.uk</link>
+    <link>https://codery.co.uk</link>
   </creator>
   <area alias="textcount">
+    <key alias="labelScreenReader">This field contains </key>
     <key alias="labelCharacter">char.</key>
     <key alias="labelCharacters">chars.</key>
     <key alias="errorCharacters">characters</key>
