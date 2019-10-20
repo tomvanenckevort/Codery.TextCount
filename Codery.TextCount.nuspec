@@ -11,7 +11,7 @@
         <iconUrl>https://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <releaseNotes>Added Umbraco v8.1 compatibility.</releaseNotes>
+        <releaseNotes>Fix for RTE editors in Umbraco 8.2.x.</releaseNotes>
         <copyright>Copyright 2019</copyright>
         <tags>umbraco editor</tags>
         <dependencies>
