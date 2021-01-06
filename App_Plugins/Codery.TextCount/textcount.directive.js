@@ -131,7 +131,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
 
                     if (isMultipleTextbox) {
                         // append after the remove button
-                        $el.next('a').after(counter);
+                        $el.siblings('a, .umb-multiple-textbox__confirm').last().after(counter);
                     } else {
                         // append after the input
                         $el.after(counter);
