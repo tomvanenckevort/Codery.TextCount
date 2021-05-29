@@ -11,7 +11,7 @@
         <iconUrl>https://raw.githubusercontent.com/tomvanenckevort/Codery.TextCount/master/TextCount.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <releaseNotes>Fix for RTE editors in Umbraco 8.2.x.</releaseNotes>
+        <releaseNotes>Fix for RTE editors in Umbraco 8.4.x.</releaseNotes>
         <copyright>Copyright 2021</copyright>
         <tags>umbraco editor</tags>
         <dependencies>
