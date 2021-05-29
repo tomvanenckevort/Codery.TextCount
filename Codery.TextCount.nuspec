@@ -7,15 +7,16 @@
         <authors>$author$</authors>
         <owners>$author$</owners>
         <licenseUrl>https://opensource.org/licenses/MIT</licenseUrl>
-        <projectUrl>https://codery.co.uk</projectUrl>
-        <iconUrl>https://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
+        <projectUrl>https://github.com/tomvanenckevort/Codery.TextCount</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/tomvanenckevort/Codery.TextCount/master/TextCount.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
         <releaseNotes>Fix for RTE editors in Umbraco 8.2.x.</releaseNotes>
-        <copyright>Copyright 2019</copyright>
+        <copyright>Copyright 2021</copyright>
         <tags>umbraco editor</tags>
         <dependencies>
-            <dependency id="UmbracoCms" version="[8.1.0,9.0.0)" />
+            <dependency id="UmbracoCms.Core" version="[8.1.0,9.0.0)" />
+            <dependency id="UmbracoCms.Web" version="[8.1.0,9.0.0)" />
             <dependency id="Codery.DataTypePicker" version="[2.0.0,3.0.0)" />
         </dependencies>
     </metadata>

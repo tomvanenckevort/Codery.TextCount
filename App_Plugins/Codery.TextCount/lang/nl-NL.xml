@@ -2,7 +2,7 @@
 <language alias="nl" intName="Dutch" localName="Dutch" lcid="" culture="nl-NL">
   <creator>
     <name>Tom van Enckevort</name>
-    <link>https://codery.co.uk</link>
+    <link>https://github.com/tomvanenckevort/Codery.TextCount</link>
   </creator>
   <area alias="textcount">
     <key alias="labelScreenReader">Dit veld bevat </key>
