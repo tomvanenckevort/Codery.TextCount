@@ -127,7 +127,9 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
                 var newInputs = elem.find('input[type="text"], textarea, .umb-rte-editor').filter(function () {
                     var $this = $(this);
 
-                    return !$this.hasClass('codery__text-input') && $this.parentsUntil(elem).has('.umb-overlay').length === 0;
+                    return !$this.hasClass('codery__text-input') &&
+                            $this.parentsUntil(elem).has('.umb-overlay').length === 0 &&
+                            $this.siblings('.codery__text-input').length === 0;
                 }).toArray();
 
                 newInputs.forEach(function (el) {
