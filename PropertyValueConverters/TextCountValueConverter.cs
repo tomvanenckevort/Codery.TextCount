@@ -8,7 +8,6 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Core.Services;
 
-#pragma warning disable CA1812
 namespace Codery.TextCount.PropertyValueConverters
 {
     /// <summary>
@@ -25,11 +24,21 @@ namespace Codery.TextCount.PropertyValueConverters
 
         public override bool IsConverter(IPublishedPropertyType propertyType)
         {
+            if (propertyType == null)
+            {
+                return false;
+            }
+
             return propertyType.EditorAlias.Equals(TextCountEditor.EditorAlias, StringComparison.InvariantCulture);
         }
 
-        public PropertyCacheLevel GetPropertyCacheLevel(PublishedPropertyType propertyType)
+        public override PropertyCacheLevel GetPropertyCacheLevel(IPublishedPropertyType propertyType)
         {
+            if (propertyType == null)
+            {
+                return PropertyCacheLevel.None;
+            }
+
             PropertyCacheLevel returnLevel;
 
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
@@ -46,15 +55,25 @@ namespace Codery.TextCount.PropertyValueConverters
             return returnLevel;
         }
 
-        public Type GetPropertyValueType(PublishedPropertyType propertyType)
+        public override Type GetPropertyValueType(IPublishedPropertyType propertyType)
         {
+            if (propertyType == null)
+            {
+                return null;
+            }
+
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
 
-            return wrappedPropertyType?.ClrType ?? typeof(string);
+            return wrappedPropertyType?.ModelClrType ?? typeof(string);
         }
 
         public override object ConvertIntermediateToObject(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
         {
+            if (propertyType == null)
+            {
+                return null;
+            }
+
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
 
             return wrappedPropertyType != null ? wrappedPropertyType.ConvertInterToObject(owner, referenceCacheLevel, inter, preview) : inter;
@@ -62,6 +81,11 @@ namespace Codery.TextCount.PropertyValueConverters
 
         public override object ConvertSourceToIntermediate(IPublishedElement owner, IPublishedPropertyType propertyType, object source, bool preview)
         {
+            if (propertyType == null)
+            {
+                return null;
+            }
+
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
 
             return wrappedPropertyType != null ? wrappedPropertyType.ConvertSourceToInter(owner, source, preview) : source;
@@ -69,6 +93,11 @@ namespace Codery.TextCount.PropertyValueConverters
 
         public override object ConvertIntermediateToXPath(IPublishedElement owner, IPublishedPropertyType propertyType, PropertyCacheLevel referenceCacheLevel, object inter, bool preview)
         {
+            if (propertyType == null)
+            {
+                return null;
+            }
+
             var wrappedPropertyType = GetWrappedPropertyType(propertyType);
 
             return wrappedPropertyType != null ? wrappedPropertyType.ConvertInterToXPath(owner, referenceCacheLevel, inter, preview) : inter;
@@ -151,4 +180,3 @@ namespace Codery.TextCount.PropertyValueConverters
         #endregion
     }
 }
-#pragma warning restore CA1812
