@@ -4,6 +4,7 @@ using Umbraco.Core.Composing;
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Web.Models.ContentEditing;
 
+#pragma warning disable CA1812
 namespace Codery.TextCount.Configuration
 {
     internal sealed class TextCountConfiguration
@@ -91,3 +92,4 @@ namespace Codery.TextCount.Configuration
         public string LimitType { get; set; }
     }
 }
+#pragma warning restore CA1812
