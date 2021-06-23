@@ -8,6 +8,7 @@ using Umbraco.Core.Models.PublishedContent;
 using Umbraco.Core.PropertyEditors;
 using Umbraco.Core.Services;
 
+#pragma warning disable CA1812
 namespace Codery.TextCount.PropertyValueConverters
 {
     /// <summary>
@@ -125,10 +126,10 @@ namespace Codery.TextCount.PropertyValueConverters
 
                 IPublishedPropertyType propertyType = null;
 
-                var wrappedDataTypeId = GetWrappedDataTypeId(wrapperPropertyType.DataType);
+                var wrappedDataTypeKey = GetWrappedDataTypeKey(wrapperPropertyType.DataType);
 
-                if (wrappedDataTypeId != default)
-                    propertyType = GetPublishedPropertyType(wrappedDataTypeId, wrapperPropertyType.ContentType);
+                if (wrappedDataTypeKey != default)
+                    propertyType = GetPublishedPropertyType(wrappedDataTypeKey, wrapperPropertyType.ContentType);
 
                 // cache the current object for future calls
                 _wrappedPropertyTypes.Add(wrapperPropertyType.DataType.Id, propertyType);
@@ -138,34 +139,45 @@ namespace Codery.TextCount.PropertyValueConverters
         }
 
         /// <summary>
-        ///     Gets the wrapped data type ID from the current data type's prevalues.
+        ///     Gets the wrapped data type key from the current data type's prevalues.
         /// </summary>
         /// <param name="wrapperDataType"></param>
         /// <returns></returns>
-        private static int GetWrappedDataTypeId(PublishedDataType wrapperDataType)
+        private Guid GetWrappedDataTypeKey(PublishedDataType wrapperDataType)
         {
-            int dataTypeId = default;
+            Guid dataTypeKey = default;
 
             var configuration = wrapperDataType.ConfigurationAs<TextCountConfiguration>();
 
             if (configuration == null)
-                return dataTypeId;
+                return dataTypeKey;
 
-            if (configuration.DataType != default)
-                dataTypeId = configuration.DataType;
+            if (configuration.DataTypeKey.HasValue && configuration.DataTypeKey.Value != default)
+            {
+                dataTypeKey = configuration.DataTypeKey.Value;
+            }
+            else if (configuration.DataTypeId.HasValue && configuration.DataTypeId.Value != default)
+            {
+                var dataType = _dataTypeService.GetDataType(configuration.DataTypeId.Value);
 
-            return dataTypeId;
+                if (dataTypeKey != null)
+                {
+                    dataTypeKey = dataType.Key;
+                }
+            }
+
+            return dataTypeKey;
         }
 
         /// <summary>
         ///     Get published property type of the wrapped data type.
         /// </summary>
-        /// <param name="dataTypeId"></param>
+        /// <param name="dataTypeKey"></param>
         /// <param name="contentType"></param>
         /// <returns></returns>
-        private IPublishedPropertyType GetPublishedPropertyType(int dataTypeId, IPublishedContentType contentType)
+        private IPublishedPropertyType GetPublishedPropertyType(Guid dataTypeKey, IPublishedContentType contentType)
         {
-            var dataType = _dataTypeService.GetDataType(dataTypeId);
+            var dataType = _dataTypeService.GetDataType(dataTypeKey);
 
             if ((dataType == null) || (contentType == null))
                 return null;
@@ -180,3 +192,4 @@ namespace Codery.TextCount.PropertyValueConverters
         #endregion
     }
 }
+#pragma warning restore CA1812

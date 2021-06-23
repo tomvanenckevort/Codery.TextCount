@@ -47,7 +47,10 @@ namespace Codery.TextCount.PropertyEditors
                 return _wrapped;
             }
 
-            var wrappedDataType = _dataTypeService.GetDataType(configuration.DataType);
+            var wrappedDataType = (configuration.DataTypeKey.HasValue ?
+                _dataTypeService.GetDataType(configuration.DataTypeKey.Value) :
+                _dataTypeService.GetDataType(configuration.DataTypeId.GetValueOrDefault())
+            );
 
             wrappedConfiguration = wrappedDataType?.Configuration;
 

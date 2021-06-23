@@ -11,13 +11,13 @@
         <iconUrl>https://raw.githubusercontent.com/tomvanenckevort/Codery.TextCount/master/TextCount.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <releaseNotes>Fix to return correct property type in PropertyValueConverter</releaseNotes>
+        <releaseNotes>Change to store wrapped data type's GUID for better Umbraco Deploy compatibility</releaseNotes>
         <copyright>Copyright 2021</copyright>
         <tags>umbraco editor</tags>
         <dependencies>
             <dependency id="UmbracoCms.Core" version="[8.1.0,9.0.0)" />
             <dependency id="UmbracoCms.Web" version="[8.1.0,9.0.0)" />
-            <dependency id="Codery.DataTypePicker" version="[2.0.0,3.0.0)" />
+            <dependency id="Codery.DataTypePicker" version="[2.1.0,3.0.0)" />
         </dependencies>
     </metadata>
     <files>
