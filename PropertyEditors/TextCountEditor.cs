@@ -5,7 +5,6 @@ using Umbraco.Core.PropertyEditors;
 using Umbraco.Core.Services;
 using Umbraco.Web.PropertyEditors;
 
-#pragma warning disable CA1812
 namespace Codery.TextCount.PropertyEditors
 {
     /// <summary>
@@ -37,4 +36,3 @@ namespace Codery.TextCount.PropertyEditors
         }
     }
 }
-#pragma warning restore CA1812
