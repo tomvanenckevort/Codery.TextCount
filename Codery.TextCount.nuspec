@@ -11,7 +11,7 @@
         <iconUrl>https://raw.githubusercontent.com/tomvanenckevort/Codery.TextCount/master/TextCount.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <releaseNotes>Change to store wrapped data type's GUID for better Umbraco Deploy compatibility</releaseNotes>
+        <releaseNotes>Fixed issue with repeatable textstring property editor.</releaseNotes>
         <copyright>Copyright 2021</copyright>
         <tags>umbraco editor</tags>
         <dependencies>
