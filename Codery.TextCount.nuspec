@@ -11,8 +11,8 @@
         <iconUrl>http://cdn.codery.co.uk/nuget/TextCount.jpg</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>$description$</description>
-        <releaseNotes>Prevent v1 of package to be used with Umbraco v8.</releaseNotes>
-        <copyright>Copyright 2019</copyright>
+        <releaseNotes>Fixed issue with repeatable textstring property editor.</releaseNotes>
+        <copyright>Copyright 2021</copyright>
         <tags>umbraco editor</tags>
         <dependencies>
             <dependency id="UmbracoCms" version="[7.4.0,8.0.0)" />

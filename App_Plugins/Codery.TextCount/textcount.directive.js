@@ -191,7 +191,7 @@ angular.module('umbraco.directives').directive('coderyTextcount', function ($tim
             // initialize when editor content has been loaded
             scope.$on('$includeContentLoaded', function () {
                 // track any text changes
-                scope.$watch('model.value', refreshCounters, true);
+                scope.$watch('wrappedProperty.value', refreshCounters, true);
             });
 
         }
