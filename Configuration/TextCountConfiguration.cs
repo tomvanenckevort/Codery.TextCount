@@ -77,7 +77,9 @@ namespace Codery.TextCount.Configuration
                     Editor = wrappedDataType.EditorAlias,
                     Validation = new PropertyTypeValidation(),
                     View = editor.GetValueEditor().View,
-                    Config = editor.GetConfigurationEditor().ToConfigurationEditor(configuration)
+                    Config = editor.GetConfigurationEditor().ToConfigurationEditor(configuration),
+                    Label = wrappedDataType.Name,
+                    Alias = wrappedDataType.EditorAlias
                 };
             }
         }
